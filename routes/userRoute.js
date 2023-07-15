@@ -40,7 +40,7 @@ router.post(
       const salt = await bcrypt.genSaltSync(10);
       const secPassword = await bcrypt.hashSync(req.body.password, salt);
       User = await userModel.create({
-        role:req.body.role,
+        role: req.body.role,
         name: req.body.name,
         password: secPassword,
         email: req.body.email,
@@ -48,13 +48,17 @@ router.post(
       const data = {
         user: {
           id: User.id,
-          role:User.role,
+          role: User.role,
         },
       };
+
+      //generating auto-token
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.send({ success: true, authToken,email:req.body.email });
+
+      //sending response
+      res.send({ success: true, authToken, email: req.body.email });
     } catch (error) {
-      console.error(error.message);
+      //to handle any internal error
       res.status(500).send({ success, error: "Some internal error occured" });
     }
   }
@@ -70,23 +74,28 @@ router.post(
   ],
   async (req, res) => {
     var success = false;
+
+    //validation
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ success, errors: errors.array() });
     }
-    const { email, password,role } = req.body;
+    const { email, password, role } = req.body;
     try {
       let User = await userModel.findOne({ email });
+      //creds validation
       if (!User) {
         return res
           .status(400)
           .json({ success, errors: "Invalid creds, please try again" });
       }
-      if(User.role!==role){
+      if (User.role !== role) {
         return res
           .status(400)
           .json({ success, errors: "Invalid creds, please try again" });
       }
+
+      //comparing password
       const passCompare = await bcrypt.compare(password, User.password);
       if (!passCompare) {
         return res
@@ -96,12 +105,17 @@ router.post(
       const data = {
         user: {
           id: User.id,
-          role:User.role,
+          role: User.role,
         },
       };
+
+      //generating auto-token
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.send({ success: true, authToken,email });
+
+      //sending response
+      res.send({ success: true, authToken, email });
     } catch (error) {
+      //to handle any internal error
       res.status(500).send({ success, error: "Some internal error occured" });
     }
   }
@@ -111,9 +125,14 @@ router.post(
 router.post("/getuser", fetchUser, async (req, res) => {
   try {
     const userid = req.user.id;
+
+    //fetching data from db
     const User = await userModel.findById(userid).select("-password");
-    res.send({User,role:req.user.role});
+
+    //sending response
+    res.send({ User, role: req.user.role });
   } catch (error) {
+    //to handle any internal error
     res.status(500).send({ error: "Some internal error occured" });
   }
 });

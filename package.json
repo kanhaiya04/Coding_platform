@@ -9,12 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.4",
-    "r": "^0.0.5"
+    "node-fetch": "^2.6.12",
+    "r": "^0.0.5",
+    "request": "^2.88.2"
   }
 }
