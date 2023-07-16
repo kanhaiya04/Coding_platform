@@ -1,11 +1,24 @@
 # Coding Platform APIs
 
+
+[![Generic badge](https://img.shields.io/badge/view-demo-blue?style=for-the-badge)](https://codingplatform-nh6b.onrender.com/)
+
+
+
 ## To run the server locally
 
 ```bash
-git clone 
+git clone https://github.com/kanhaiya04/Coding_platform
 cd Coding_platform/
 ```
+
+## Create and configure .env file
+
+```bash
+touch .env
+cp .env.sample .env
+```
+update the values in the .env file
 
 ## Install packages
 
