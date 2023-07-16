@@ -122,7 +122,7 @@ router.post(
 );
 
 //get user route
-router.post("/getuser", fetchUser, async (req, res) => {
+router.get("/getuser", fetchUser, async (req, res) => {
   try {
     const userid = req.user.id;
 

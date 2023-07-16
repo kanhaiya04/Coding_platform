@@ -145,7 +145,7 @@ async function deleteProblem(problemId) {
 }
 
 //route fetch desired no. of problems
-router.post("/fetch", fetchUser, async (req, res) => {
+router.post("/fetch", async (req, res) => {
   let success = false;
   try {
     //set the count to desired number or the length of the collection

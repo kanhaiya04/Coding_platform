@@ -25,5 +25,5 @@ app.use("/question/", require("./routes/questionRoute.js"));
 
 //starting the server
 app.listen(PORT || process.env.PORT, () => {
-  console.log(`Sever is running at ${PORT}`);
+  console.log(`Server is running at ${PORT}`);
 });
